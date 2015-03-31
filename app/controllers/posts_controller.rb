@@ -3,13 +3,12 @@ class PostsController < ApplicationController
 
   # GET /posts
   # GET /posts.json
+
+  def home
+  end
+
   def index
-    # @search = Post.search do
-    #   fulltext params[:search] #passing the search parameter into the block (giving the block the information the user types into the search bar)
-    # end
-    # @posts = @search.results
-  #to show all posts; like "browse all" refer to what I had before showing search results
-    @posts = Post.all.paginate(:page => params[:page], :per_page => 30)
+    @posts = Post.text_search(params[:query]).page(params[:page]).per_page(30)
   end
 
   # GET /posts/1
